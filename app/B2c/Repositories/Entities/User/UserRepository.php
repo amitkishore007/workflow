@@ -5,11 +5,12 @@ namespace App\B2c\Repositories\Entities\User;
 use Illuminate\Support\Facades\Hash;
 use App\B2c\Repositories\Models\User;
 use Symfony\Component\HttpFoundation\Response;
-use App\B2c\Repositories\Entities\Api\ApiRepository;
+use App\B2c\Repositories\Contracts\ApiInterface;
 use App\B2c\Repositories\Contracts\UserInterface;
 use App\B2c\Repositories\Events\VerifyEmailEvent;
 use App\B2c\Repositories\Models\Verificationhash;
 use App\B2c\Repositories\Contracts\RedisInterface;
+use App\B2c\Repositories\Entities\Api\ApiRepository;
 
 /**
  * The UserRepository class handles the data send from UserController

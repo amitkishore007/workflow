@@ -17,7 +17,6 @@
 $router->group(['prefix'=>'v1'],function() use ($router){
 	$router->post('otp','UserController@otp');
 	$router->post('register','UserController@register');
-	$router->post('verify_otp','UserController@verifyOtp');
 	$router->post('isEmailVerified','UserController@isEmailVerified');
 	$router->post('login','UserController@login');
 	$router->post('password','UserController@setpassword');
