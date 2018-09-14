@@ -29,16 +29,18 @@ return [
                         'hash' => 'required'
                 ],
                 'process_create' => [
-                        'name'  => 'required|min:3',
+                        'process'  => 'required|min:3',
                         'order' => 'required|numeric|unique:app_process',
                         'action'=> 'required|unique:app_process',
-                        'type'  => 'required'
+                        'sub_process'  => 'required',
+                        'task'  =>'required'
                 ],
                 'process_update' => [
-                        'name'  => 'required|min:3',
+                        'process'  => 'required|min:3',
                         'order' => 'required|numeric|unique:app_process,order',
                         'action'=> 'required|unique:app_process,action',
-                        'type'  => 'required'
+                        'sub_process'  => 'required',
+                        'task'=>'required'
                 ]
                 
         ]

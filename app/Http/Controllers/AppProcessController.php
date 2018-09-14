@@ -77,7 +77,7 @@ class AppProcessController extends Controller
      */
     public function getAllProcess()
     {
-        return $this->AppProcessRepository->all();
+        return $this->AppProcessRepository->allWorkflow();
     }
 
 }

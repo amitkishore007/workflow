@@ -8,7 +8,7 @@ use App\B2c\Repositories\Factory\Contracts\RepositoryInterface;
 interface AppProcessInterface extends RepositoryInterface
 {
     const ID                = 'id';
-    const NAME              = 'process';
+    const PROCESS              = 'process';
     const SUB_PROCESS       = 'sub_process';
     const TASK              = 'task';
     const ORDER             = 'order';

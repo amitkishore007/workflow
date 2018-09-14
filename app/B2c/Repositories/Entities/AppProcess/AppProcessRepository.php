@@ -36,13 +36,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function all($columns = array('*'))
     {
-       $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
-       return $this->createResponseStructure(
-            ApiInterface::SUCCESS_STATUS,
-            Response::HTTP_OK,
-            AppProcessInterface::RESOURCE,
-            $appProcesses->toArray()
-        );
+
     }
 
     /**
@@ -157,4 +151,55 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
         }
         return $output;
     }
+
+    /**
+     * Get all workflow
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param array $columns
+     */
+    public function allWorkflow($columns = array('*'))
+    {
+       $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
+        
+       return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $this->createProcessOutput($appProcesses)
+        );
+    }
+
+    /**
+     * Merge Workflow array
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param Collection $process
+     */
+    private function createProcessOutput($processes) {
+        $output = [];
+        foreach ($processes as $process) {
+            if (array_key_exists($process['process'], $output)) {
+                $output[$process['process']] += [
+                        $process['sub_process'] => [
+                                        'task'=> $process['task'],
+                                        'action'=> $process['action'],
+                                        'order'=> $process['order'],
+                                    ]
+                    ];
+            } else {
+                $output[$process['process']] = [
+                                $process['sub_process'] => [
+                                    'task'=> $process['task'],
+                                    'action'=> $process['action'],
+                                    'order'=> $process['order'],
+                                ]
+                    ];
+            }
+        }
+        return $output;
+    }
+     
+
+
 }
