@@ -69,4 +69,16 @@ class AppProcess extends Model {
         $date = new \Carbon\Carbon($value);
         return $date->toIso8601String();
     } 
+    
+    /**
+     * Reset the workflow order afer deleting an process
+     *
+     * @param int $deletedId
+     *
+     * @return boolean
+     */
+    public function resetWorkflowOrder(int $deletedId) {
+        $updated = self::where('id','>',$deletedId)->decrement('order');
+        return $updated ? : false;
+    }   
 }

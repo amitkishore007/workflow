@@ -26,7 +26,15 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 	$router->group(['prefix'=>'process'], function() use ($router) {
 		$router->post('create','AppProcessController@createProcess');
 		$router->post('update/{id}','AppProcessController@updateProcess');
-		$router->post('delete/{id}','AppProcessController@deleteProcess');
+		$router->delete('delete/{id}','AppProcessController@deleteProcess');
 		$router->get('/','AppProcessController@getAllProcess');
+
 	});
+	
+	$router->group(['prefix'=>'application'], function() use ($router) {
+		$router->post('/basic-info','ApplicationController@basicInfo');
+		$router->post('/owner-info','ApplicationController@ownerInfo');
+		$router->post('/loan-info','ApplicationController@loanInfo');
+	});
+
 });

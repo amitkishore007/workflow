@@ -62,6 +62,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
         $process = $this->AppProcess->findOrFail($id);
         $deleted = $process->delete();
         if($deleted) {
+            $this->AppProcess->resetWorkflowOrder($id);
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
