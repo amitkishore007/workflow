@@ -3,30 +3,30 @@
 namespace App\B2c\Repositories\Entities\Application;
 
 use Illuminate\Support\Facades\Route;
-use \App\B2c\Repositories\Models\Application;
 use Symfony\Component\HttpFoundation\Response;
 use App\B2c\Repositories\Contracts\ApiInterface;
+use App\B2c\Repositories\Models\ApplicationOwner;
 use App\B2c\Repositories\Entities\Api\ApiRepository;
-use App\B2c\Repositories\Contracts\ApplicationInterface;
+use App\B2c\Repositories\Contracts\ApplicationOwnerInterface;
 
 /**
  * The AppProcessRepository class handles the data send from AppProcess Controller
  * and perform further validation if needed and perform database operation using required Model
  * @author Amit kishore <amit.kishore@biz2credit.com>
  */
-class ApplicationRepository extends ApiRepository implements ApplicationInterface
+class ApplicationOwnerRepository extends ApiRepository implements ApplicationOwnerInterface
 {
     /**
-     * @var App\B2c\Repositories\Models\Application
+     * @var App\B2c\Repositories\Models\ApplicationOwner
      */
-    protected $Application;
+    protected $ApplicationOwner;
    
     /**
      * @param AppProcess $Application
      */
-    public function __construct(Application $Application)
+    public function __construct(ApplicationOwner $ApplicationOwner)
     {
-        $this->Application = $Application;
+        $this->ApplicationOwner = $ApplicationOwner;
     }
 
     /**
@@ -58,7 +58,6 @@ class ApplicationRepository extends ApiRepository implements ApplicationInterfac
      */
     public function delete(int $id)
     {
-       
     }
 
     /**
@@ -69,7 +68,7 @@ class ApplicationRepository extends ApiRepository implements ApplicationInterfac
     */
     public function create(array $attributes)
     {
-        $application = $this->Application->create($attributes);
+        $application = $this->ApplicationOwner->create($attributes);
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
@@ -87,7 +86,5 @@ class ApplicationRepository extends ApiRepository implements ApplicationInterfac
      */
     public function update(array $attributes, int $id)
     {
-        
     }
-
 }

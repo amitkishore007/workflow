@@ -27,11 +27,20 @@ class B2cServiceProvider extends ServiceProvider
             'App\B2c\Repositories\Contracts\VerificationHashInterface',
             'App\B2c\Repositories\Entities\User\VerificationHashRepository'
 		);
-		
 		$this->app->bind(
             'App\B2c\Repositories\Contracts\AppProcessInterface',
             'App\B2c\Repositories\Entities\AppProcess\AppProcessRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\ApplicationInterface',
+            'App\B2c\Repositories\Entities\Application\ApplicationRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\ApplicationOwnerInterface',
+            'App\B2c\Repositories\Entities\Application\ApplicationOwnerRepository'
         );
+
+
 	}
 	
 	/**
