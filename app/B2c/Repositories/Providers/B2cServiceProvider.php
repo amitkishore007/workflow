@@ -38,6 +38,10 @@ class B2cServiceProvider extends ServiceProvider
 		$this->app->bind(
             'App\B2c\Repositories\Contracts\ApplicationOwnerInterface',
             'App\B2c\Repositories\Entities\Application\ApplicationOwnerRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\ApplicationLoanInterface',
+            'App\B2c\Repositories\Entities\Application\ApplicationLoanRepository'
         );
 
 
