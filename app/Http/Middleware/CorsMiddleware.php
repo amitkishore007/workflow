@@ -23,7 +23,7 @@ class CorsMiddleware
             'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
-            'Access-Control-Allow-Headers'     => '*'
+            'Access-Control-Allow-Headers'     => 'Origin, X-Requested-With, Content-Type, Accept, no-auth'
         ];
 
         if ($Request->isMethod('OPTIONS')) {
@@ -32,13 +32,15 @@ class CorsMiddleware
             $response = $Next($Request);
         }
 
-        if($response instanceof Illuminate\Http\Response) {
+        $IlluminateResponse = 'Illuminate\Http\Response';
+        $SymfonyResopnse = 'Symfony\Component\HttpFoundation\Response';
+        if ($response instanceof $IlluminateResponse) {
             foreach ($headers as $key => $value) {
                 $response->header($key, $value);
             }
         }
 
-        if($response instanceof Symfony\Component\HttpFoundation\Response) {
+        if ($response instanceof $SymfonyResopnse) {
             foreach ($headers as $key => $value) {
                 $response->headers->set($key, $value);
             }
