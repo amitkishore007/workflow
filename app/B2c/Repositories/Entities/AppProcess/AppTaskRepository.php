@@ -3,7 +3,7 @@
 namespace App\B2c\Repositories\Entities\AppProcess;
 
 use Illuminate\Support\Facades\Route;
-use \App\B2c\Repositories\Models\AppProcess;
+use App\B2c\Repositories\Models\AppTask;
 use Symfony\Component\HttpFoundation\Response;
 use App\B2c\Repositories\Contracts\ApiInterface;
 use App\B2c\Repositories\Entities\Api\ApiRepository;
@@ -14,29 +14,29 @@ use App\B2c\Repositories\Contracts\AppProcessInterface;
  * and perform further validation if needed and perform database operation using required Model
  * @author Amit kishore <amit.kishore@biz2credit.com>
  */
-class AppProcessRepository extends ApiRepository implements AppProcessInterface
+class AppTaskRepository extends ApiRepository implements AppTaskInterface
 {
     /**
-     * @var App\B2c\Repositories\Models\AppProcess
+     * @var App\B2c\Repositories\Models\AppTask
      */
-    protected $AppProcess;
+    protected $AppTask;
 
     /**
-     * @param AppProcess $AppProcess
+     * @param AppTask $AppTask
      */
-    public function __construct(AppProcess $AppProcess) {
-        $this->AppProcess = $AppProcess;
+    public function __construct(AppTask $AppTask)
+    {
+        $this->AppTask = $AppTask;
     }
 
-     /**
-     * Get all records method
-     * @author Amit kishore <amit.kishore@biz2credit.com>
-     *
-     * @param array $columns
-     */
+    /**
+    * Get all records method
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    *
+    * @param array $columns
+    */
     public function all($columns = array('*'))
     {
-
     }
 
     /**
@@ -48,7 +48,6 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function find(int $id, $columns = array('*'))
     {
-
     }
 
     /**
@@ -59,15 +58,15 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function delete(int $id)
     {
-        $process = $this->AppProcess->findOrFail($id);
-        $deleted = $process->delete();
-        if($deleted) {
-            $this->AppProcess->resetWorkflowOrder($id);
+        $Task = $this->AppTask->findOrFail($id);
+        $deleted = $Task->delete();
+        if ($deleted) {
+            // $this->AppTask->resetWorkflowOrder($id);
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
                 AppProcessInterface::RESOURCE,
-                $this->transformResponse($process, $process->processTransform)
+                $this->transformResponse($Task, $Task->processTransform)
             );
         }
     }
@@ -80,7 +79,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     */
     public function create(array $attributes)
     {
-        if(!$this->route_exist($attributes['action'])) {
+        if (!$this->route_exist($attributes['action'])) {
             return $this->createResponseStructure(
                 ApiInterface::FAILED_STATUS,
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -91,14 +90,14 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
             );
         }
 
-        $process = $this->AppProcess->create($attributes);
+        $Task = $this->AppTask->create($attributes);
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
             AppProcessInterface::RESOURCE,
-            $this->transformResponse($process, $process->processTransform)
+            $this->transformResponse($Task, $Task->processTransform)
         );
-    }   
+    }
 
     /**
      * Update method
@@ -109,14 +108,14 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function update(array $attributes, int $id)
     {
-        $process = $this->AppProcess->findOrFail($id);
-        $updated = $process->update($attributes);
-        if($updated) {
+        $Task = $this->AppTask->findOrFail($id);
+        $updated = $Task->update($attributes);
+        if ($updated) {
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
                 AppProcessInterface::RESOURCE,
-                $this->transformResponse($process, $process->processTransform)
+                $this->transformResponse($Task, $Task->processTransform)
             );
         }
     }
@@ -140,14 +139,13 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      * Get All Routes
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
-     * @return array 
+     * @return array
      */
     private function get_routes()
     {
         $output = [];
         $routes = Route::getRoutes();
-        foreach($routes as $route)
-        {
+        foreach ($routes as $route) {
             $output[] = $route['uri'];
         }
         return $output;
@@ -161,9 +159,9 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function allWorkflow($columns = array('*'))
     {
-       $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
+        $appProcesses = $this->AppTask->select($columns)->orderBy('order', 'asc')->get();
         
-       return $this->createResponseStructure(
+        return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
             AppProcessInterface::RESOURCE,
@@ -175,32 +173,30 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      * Merge Workflow array
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
-     * @param Collection $process
+     * @param Collection $Task
      */
-    private function createProcessOutput($processes) {
+    private function createProcessOutput($Taskes)
+    {
         $output = [];
-        foreach ($processes as $process) {
-            if (array_key_exists($process['process'], $output)) {
-                $output[$process['process']] += [
-                        $process['sub_process'] => [
-                                        'task'=> $process['task'],
-                                        'action'=> $process['action'],
-                                        'order'=> $process['order'],
+        foreach ($Taskes as $Task) {
+            if (array_key_exists($Task['process'], $output)) {
+                $output[$Task['process']] += [
+                        $Task['sub_process'] => [
+                                        'task'=> $Task['task'],
+                                        'action'=> $Task['action'],
+                                        'order'=> $Task['order'],
                                     ]
                     ];
             } else {
-                $output[$process['process']] = [
-                                $process['sub_process'] => [
-                                    'task'=> $process['task'],
-                                    'action'=> $process['action'],
-                                    'order'=> $process['order'],
+                $output[$Task['process']] = [
+                                $Task['sub_process'] => [
+                                    'task'=> $Task['task'],
+                                    'action'=> $Task['action'],
+                                    'order'=> $Task['order'],
                                 ]
                     ];
             }
         }
         return $output;
     }
-     
-
-
 }

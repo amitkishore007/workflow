@@ -24,25 +24,30 @@ class B2cServiceProvider extends ServiceProvider
 			'App\B2c\Repositories\Entities\Redis\RedisRepository'
 		);
 		$this->app->bind(
-            'App\B2c\Repositories\Contracts\VerificationHashInterface',
-            'App\B2c\Repositories\Entities\User\VerificationHashRepository'
+			'App\B2c\Repositories\Contracts\VerificationHashInterface',
+			'App\B2c\Repositories\Entities\User\VerificationHashRepository'
 		);
 		$this->app->bind(
-            'App\B2c\Repositories\Contracts\AppProcessInterface',
-            'App\B2c\Repositories\Entities\AppProcess\AppProcessRepository'
+			'App\B2c\Repositories\Contracts\AppProcessInterface',
+			'App\B2c\Repositories\Entities\AppProcess\AppProcessRepository'
 		);
 		$this->app->bind(
-            'App\B2c\Repositories\Contracts\ApplicationInterface',
-            'App\B2c\Repositories\Entities\Application\ApplicationRepository'
+			'App\B2c\Repositories\Contracts\ApplicationInterface',
+			'App\B2c\Repositories\Entities\Application\ApplicationRepository'
 		);
 		$this->app->bind(
-            'App\B2c\Repositories\Contracts\ApplicationOwnerInterface',
-            'App\B2c\Repositories\Entities\Application\ApplicationOwnerRepository'
+			'App\B2c\Repositories\Contracts\ApplicationOwnerInterface',
+			'App\B2c\Repositories\Entities\Application\ApplicationOwnerRepository'
 		);
 		$this->app->bind(
-            'App\B2c\Repositories\Contracts\ApplicationLoanInterface',
-            'App\B2c\Repositories\Entities\Application\ApplicationLoanRepository'
-        );
+			'App\B2c\Repositories\Contracts\ApplicationLoanInterface',
+			'App\B2c\Repositories\Entities\Application\ApplicationLoanRepository'
+		);
+		$this->app->bind(
+			'App\B2c\Repositories\Contracts\ApplicationBasicInfoInterface',
+			'App\B2c\Repositories\Entities\Application\ApplicationBasicInfoRepository'
+            );
+
 
 
 	}

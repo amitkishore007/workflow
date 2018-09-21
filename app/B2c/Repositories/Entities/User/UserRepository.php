@@ -69,7 +69,7 @@ class UserRepository extends ApiRepository implements UserInterface
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
             self::RESOURCE,
-            $attributes
+            $userDetails
         );
     }
 

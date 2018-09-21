@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\B2c\Repositories\Contracts\ApplicationInterface;
 use App\B2c\Repositories\Contracts\ApplicationLoanInterface;
 use App\B2c\Repositories\Contracts\ApplicationOwnerInterface;
+use App\B2c\Repositories\Contracts\ApplicationBasicInfoInterface;
 
 
 class ApplicationController extends Controller
@@ -15,6 +16,11 @@ class ApplicationController extends Controller
      * @var \App\B2c\Repositories\Entity\Application\ApplicationRepository
      */
     protected $ApplicationRepository;
+
+    /**
+     * @var \App\B2c\Repositories\Entity\Application\ApplicationBasicInfoInterface
+     */
+    protected $ApplicationBasicInfoRepository;
 
     /**
      * @var \App\B2c\Repositories\Entity\Application\ApplicationOwnerRepository
@@ -34,12 +40,14 @@ class ApplicationController extends Controller
     public function __construct(
         ApplicationInterface $ApplicationRepository, 
         ApplicationOwnerInterface $ApplicationOwnerRepository,
-        ApplicationLoanInterface $ApplicationLoanRepository
+        ApplicationLoanInterface $ApplicationLoanRepository,
+        ApplicationBasicInfoInterface $ApplicationBasicInfoRepository
         )
     {
         $this->ApplicationRepository = $ApplicationRepository;
         $this->ApplicationOwnerRepository = $ApplicationOwnerRepository;
         $this->ApplicationLoanRepository = $ApplicationLoanRepository;
+        $this->ApplicationBasicInfoRepository = $ApplicationBasicInfoRepository;
 
     }
 
@@ -48,8 +56,17 @@ class ApplicationController extends Controller
      *
      * @return string
      */
-    public function basicInfo(Request $Request) {
+    public function createApplication(Request $Request) {
         return $this->ApplicationRepository->create($Request->all());
+    }
+
+    /**
+     * @param Request $Request
+     *
+     * @return string
+     */
+    public function basicInfo(Request $Request) {
+        return $this->ApplicationBasicInfoRepository->create($Request->all());
     }
 
     /**

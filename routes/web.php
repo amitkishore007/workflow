@@ -32,9 +32,22 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 	});
 	
 	$router->group(['prefix'=>'application'], function() use ($router) {
-		$router->post('/basic-info','ApplicationController@basicInfo');
-		$router->post('/owner-info','ApplicationController@ownerInfo');
-		$router->post('/loan-info','ApplicationController@loanInfo');
+		$router->post('/create','ApplicationController@createApplication');
+		$router->post('/address','ApplicationController@address');
+		$router->post('/business-detail','ApplicationController@business');
+		// $router->post('/basic-info','ApplicationController@basicInfo');
+		// $router->post('/owner-info','ApplicationController@ownerInfo');
+		$router->post('/loan-detail','ApplicationController@loanInfo');
+		$router->post('/loan-purpose','ApplicationController@loanPurpose');
+		$router->post('/required-document','ApplicationController@requiredDocument');
+		$router->post('/upload-document','ApplicationController@uploadDocument');
+
+		$router->group(['prefix'=>'coapplicant'], function() use ($router) {
+			$router->post('/company-info','ApplicationController@coapplicantCompany');			
+			$router->post('/address','ApplicationController@coapplicantAddress');			
+			$router->post('/occupation-detail','ApplicationController@coapplicantOccupation');			
+		});
+		
 	});
 
 });

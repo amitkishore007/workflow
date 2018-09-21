@@ -10,13 +10,8 @@ class Application extends Model {
     protected $table = 'applications';
 
     protected $fillable = [
-        'company_name',
-        'pan_number',
-        'itr_income',
-        'business_year',
-        'company_address',
-        'state',
-        'city'
+        'user_id',
+        'status'
     ];
 
 }

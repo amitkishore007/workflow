@@ -13,13 +13,14 @@ class CreateAppProcessTable extends Migration
      */
     public function up()
     {
-        Schema::create('app_process', function (Blueprint $table) {
+        Schema::create('app_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('process');
-            $table->string('sub_process');
-            $table->string('task');
+            $table->string('process_id');
+            $table->string('name');
             $table->integer('order');
             $table->string('action');
+            $table->string('page');
+            $table->string('slug');
             $table->timestamps();
 
             $table->softDeletes();
@@ -34,6 +35,6 @@ class CreateAppProcessTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('app_process');
+        Schema::dropIfExists('app_tasks');
     }
 }

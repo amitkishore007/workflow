@@ -8,14 +8,7 @@ use App\B2c\Repositories\Factory\Contracts\RepositoryInterface;
 interface AppProcessInterface extends RepositoryInterface
 {
     const ID                = 'id';
-    const PROCESS              = 'process';
-    const SUB_PROCESS       = 'sub_process';
-    const TASK              = 'task';
-    const ORDER             = 'order';
-    const ACTION            = 'action';
-    const CREATED_AT        = 'created_at';
-    const UPDATED_AT        = 'updated_at';
-    const DELETED_AT        = 'deleted_at';
+    const NAME              = 'name';
+    const PARENT_ID         = 'parent_id';
     const RESOURCE          = 'workflow';
-    const ROUTE_FAILED     = 'Please enter a valid action/route'; 
 }
