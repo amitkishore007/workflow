@@ -152,20 +152,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     {
         $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
     
-        $output = [];
-        
-        foreach($appProcesses as $process) {
-            $tasks = $process->tasks()->orderBy('order','asc')->get();
-            foreach($tasks as $task){
-                    $output[$process->name][] = [
-                        'id' => $task->slug,
-                        'uri' => $task->action,
-                        'view' => $process->name.'/'.$task->slug,
-                    ];
-            }
-        }
-        return $output;
-       return $this->createResponseStructure(
+        return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
             AppProcessInterface::RESOURCE,
@@ -181,23 +168,25 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     private function createProcessOutput($processes) {
         $output = [];
-        foreach ($processes as $process) {
-            if (array_key_exists($process['process'], $output)) {
-                $output[$process['process']] += [
-                        $process['sub_process'] => [
-                                        'task'=> $process['task'],
-                                        'action'=> $process['action'],
-                                        'order'=> $process['order'],
-                                    ]
+        foreach($processes as $process) {
+            $tasks = $process->tasks()->orderBy('order','asc')->get();
+            foreach($tasks as $key => $task){
+                if($key+1 < count($tasks)) {
+                    $output[$process->name][] = [
+                            'id' => $task->slug,
+                            'uri' => $task->action,
+                            'view' => $process->name.'/'.$task->slug,
+                            'transition'=> $tasks[$key+1]['slug']
                     ];
-            } else {
-                $output[$process['process']] = [
-                                $process['sub_process'] => [
-                                    'task'=> $process['task'],
-                                    'action'=> $process['action'],
-                                    'order'=> $process['order'],
-                                ]
+                } else {
+                    $output[$process->name][] = [
+                            'id' => $task->slug,
+                            'uri' => $task->action,
+                            'view' => $process->name.'/'.$task->slug,
+                            'transition'=> null
                     ];
+
+                }
             }
         }
         return $output;
