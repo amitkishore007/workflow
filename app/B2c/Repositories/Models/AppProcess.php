@@ -10,8 +10,9 @@ class AppProcess extends Model {
 
     const TABLE       = "app_process";
     const NAME        = "name";
-    const PARENT_ID   = "parent_id";
     const CREATED_AT  = "created_at";
+    const UPDATED_AT  = 'updated_at';
+    const ORDER       = 'order';  
 
     protected $table = self::TABLE;
 
@@ -22,7 +23,7 @@ class AppProcess extends Model {
      */
     protected $fillable = [
         self::NAME,
-        self::PARENT_ID
+        self::ORDER
     ];
 
     /**
@@ -57,5 +58,14 @@ class AppProcess extends Model {
         $date = new \Carbon\Carbon($value);
         return $date->toIso8601String();
     } 
+
+    /**
+    * Relation with app Task
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    */
+    public function tasks()
+    {
+        return $this->hasMany('App\B2c\Repositories\Models\AppTask','process_id');
+    }
     
 }

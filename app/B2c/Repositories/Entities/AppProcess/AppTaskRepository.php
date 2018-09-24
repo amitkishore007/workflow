@@ -3,14 +3,14 @@
 namespace App\B2c\Repositories\Entities\AppProcess;
 
 use Illuminate\Support\Facades\Route;
-use App\B2c\Repositories\Models\AppTask;
+use \App\B2c\Repositories\Models\AppTask;
 use Symfony\Component\HttpFoundation\Response;
 use App\B2c\Repositories\Contracts\ApiInterface;
 use App\B2c\Repositories\Entities\Api\ApiRepository;
-use App\B2c\Repositories\Contracts\AppProcessInterface;
+use App\B2c\Repositories\Contracts\AppTaskInterface;
 
 /**
- * The AppProcessRepository class handles the data send from AppProcess Controller
+ * The AppTasjRepository class handles the data send from AppTask Controller
  * and perform further validation if needed and perform database operation using required Model
  * @author Amit kishore <amit.kishore@biz2credit.com>
  */
@@ -58,15 +58,15 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      */
     public function delete(int $id)
     {
-        $Task = $this->AppTask->findOrFail($id);
-        $deleted = $Task->delete();
+        $process = $this->AppTask->findOrFail($id);
+        $deleted = $process->delete();
         if ($deleted) {
-            // $this->AppTask->resetWorkflowOrder($id);
+            $this->AppTask->resetWorkflowOrder($id);
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
-                AppProcessInterface::RESOURCE,
-                $this->transformResponse($Task, $Task->processTransform)
+                AppTaskInterface::RESOURCE,
+                $this->transformResponse($process, $process->taskTransform)
             );
         }
     }
@@ -83,19 +83,19 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
             return $this->createResponseStructure(
                 ApiInterface::FAILED_STATUS,
                 Response::HTTP_UNPROCESSABLE_ENTITY,
-                AppProcessInterface::RESOURCE,
+                AppTaskInterface::RESOURCE,
                 [
-                    AppProcessInterface::ACTION => AppProcessInterface::ROUTE_FAILED
+                    AppTaskInterface::ACTION => AppTaskInterface::ROUTE_FAILED
                 ]
             );
         }
 
-        $Task = $this->AppTask->create($attributes);
+        $process = $this->AppTask->create($attributes);
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
-            AppProcessInterface::RESOURCE,
-            $this->transformResponse($Task, $Task->processTransform)
+            AppTaskInterface::RESOURCE,
+            $this->transformResponse($process, $process->taskTransform)
         );
     }
 
@@ -108,14 +108,14 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      */
     public function update(array $attributes, int $id)
     {
-        $Task = $this->AppTask->findOrFail($id);
-        $updated = $Task->update($attributes);
+        $process = $this->AppTask->findOrFail($id);
+        $updated = $process->update($attributes);
         if ($updated) {
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
-                AppProcessInterface::RESOURCE,
-                $this->transformResponse($Task, $Task->processTransform)
+                AppTaskInterface::RESOURCE,
+                $this->transformResponse($process, $process->taskTransform)
             );
         }
     }
@@ -159,13 +159,13 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      */
     public function allWorkflow($columns = array('*'))
     {
-        $appProcesses = $this->AppTask->select($columns)->orderBy('order', 'asc')->get();
+        $appTaskes = $this->AppTask->select($columns)->orderBy('order', 'asc')->get();
         
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
-            AppProcessInterface::RESOURCE,
-            $this->createProcessOutput($appProcesses)
+            AppTaskInterface::RESOURCE,
+            $this->createProcessOutput($appTaskes)
         );
     }
 
@@ -173,26 +173,26 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      * Merge Workflow array
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
-     * @param Collection $Task
+     * @param Collection $process
      */
-    private function createProcessOutput($Taskes)
+    private function createProcessOutput($processes)
     {
         $output = [];
-        foreach ($Taskes as $Task) {
-            if (array_key_exists($Task['process'], $output)) {
-                $output[$Task['process']] += [
-                        $Task['sub_process'] => [
-                                        'task'=> $Task['task'],
-                                        'action'=> $Task['action'],
-                                        'order'=> $Task['order'],
+        foreach ($processes as $process) {
+            if (array_key_exists($process['process'], $output)) {
+                $output[$process['process']] += [
+                        $process['sub_process'] => [
+                                        'task'=> $process['task'],
+                                        'action'=> $process['action'],
+                                        'order'=> $process['order'],
                                     ]
                     ];
             } else {
-                $output[$Task['process']] = [
-                                $Task['sub_process'] => [
-                                    'task'=> $Task['task'],
-                                    'action'=> $Task['action'],
-                                    'order'=> $Task['order'],
+                $output[$process['process']] = [
+                                $process['sub_process'] => [
+                                    'task'=> $process['task'],
+                                    'action'=> $process['action'],
+                                    'order'=> $process['order'],
                                 ]
                     ];
             }

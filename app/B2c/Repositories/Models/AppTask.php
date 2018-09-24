@@ -3,7 +3,7 @@
 namespace App\B2c\Repositories\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\B2c\Repositories\Transformers\AppTaskTransformer;
 use App\B2c\Repositories\Transformers\AppProcessTransformer;
 
 class AppTask extends Model
@@ -16,11 +16,11 @@ class AppTask extends Model
     const ACTION      = "action";
     const PAGE        = "page"; 
     const SLUG        = "slug"; 
-    const DELETED_AT  = "deleted_at";
     const UPDATED_AT  = "updated_at";
     const CREATED_AT  = "created_at";
 
     protected $table = self::TABLE;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -37,9 +37,9 @@ class AppTask extends Model
     ];
 
     /**
-     * @var App\B2c\Repositories\Transformers\AppProcessTransformer
+     * @var App\B2c\Repositories\Transformers\AppTaskTransformer
      */
-    public $processTransform = AppProcessTransformer::class;
+    public $taskTransform = AppTaskTransformer::class;
 
     /**
      * Accessor Method to convert created_at timestamp into ISO8601
@@ -68,5 +68,15 @@ class AppTask extends Model
         $date = new \Carbon\Carbon($value);
         return $date->toIso8601String();
     }
+
+    /**
+    * Relation with app processs
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    */
+    public function process()
+    {
+        return $this->belongsTo('App\B2c\Repositories\Models\AppProcess');
+    }
+    
     
 }

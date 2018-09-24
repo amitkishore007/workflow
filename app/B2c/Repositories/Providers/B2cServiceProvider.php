@@ -46,7 +46,12 @@ class B2cServiceProvider extends ServiceProvider
 		$this->app->bind(
 			'App\B2c\Repositories\Contracts\ApplicationBasicInfoInterface',
 			'App\B2c\Repositories\Entities\Application\ApplicationBasicInfoRepository'
-            );
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\AppTaskInterface',
+            'App\B2c\Repositories\Entities\AppProcess\AppTaskRepository'
+        );
+
 
 
 

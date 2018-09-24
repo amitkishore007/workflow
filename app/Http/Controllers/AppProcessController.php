@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\B2c\Repositories\Models\AppProcess;
 use App\B2c\Repositories\Entities\AppProcess\AppProcessRepository;
 
 class AppProcessController extends Controller
@@ -14,19 +13,13 @@ class AppProcessController extends Controller
     protected $AppProcessRepository;
 
     /**
-     * @var \App\B2c\Repositories\Models\AppProcess
-     */
-    protected $AppProcess;
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AppProcessRepository $AppProcessRepository, AppProcess $AppProcess)
+    public function __construct(AppProcessRepository $AppProcessRepository)
     {
         $this->AppProcessRepository = $AppProcessRepository;
-        $this->AppProcess = $AppProcess;
 
     }
 

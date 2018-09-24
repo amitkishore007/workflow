@@ -18,7 +18,7 @@ return [
                         'otp'   => 'required|numeric'
                 ],
                 'login'=> [
-                        'email' => 'required|emailorphone',
+                        'email'    => 'required|emailorphone',
                         'password' => 'required'
                 ],
                 'isEmailPhone' => [
@@ -26,21 +26,25 @@ return [
                 ],
                 'setpassword' => [
                         'password' => 'required|min:8',
-                        'hash' => 'required'
+                        'hash'     => 'required'
                 ],
                 'process_create' => [
-                        'process'  => 'required|min:3',
+                        'name'  => 'required|min:3|unique:app_process',
                         'order' => 'required|numeric|unique:app_process',
-                        'action'=> 'required|unique:app_process',
-                        'sub_process'  => 'required',
-                        'task'  =>'required'
+                ],
+                'task_create' => [
+                        'name'       => 'required|min:3',
+                        'order'      => 'required|numeric',
+                        'action'     => 'required|unique:app_tasks',
+                        'process_id' => 'required|numeric',
+                        'slug'       => 'required'
                 ],
                 'process_update' => [
-                        'process'  => 'required|min:3',
-                        'order' => 'required|numeric|unique:app_process,order',
-                        'action'=> 'required|unique:app_process,action',
-                        'sub_process'  => 'required',
-                        'task'=>'required'
+                        'process'     => 'required|min:3',
+                        'order'       => 'required|numeric|unique:app_process,order',
+                        'action'      => 'required|unique:app_process,action',
+                        'sub_process' => 'required',
+                        'task'        => 'required'
                 ]
                 
         ]

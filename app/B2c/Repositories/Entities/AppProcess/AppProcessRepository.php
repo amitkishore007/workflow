@@ -80,17 +80,6 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     */
     public function create(array $attributes)
     {
-        if(!$this->route_exist($attributes['action'])) {
-            return $this->createResponseStructure(
-                ApiInterface::FAILED_STATUS,
-                Response::HTTP_UNPROCESSABLE_ENTITY,
-                AppProcessInterface::RESOURCE,
-                [
-                    AppProcessInterface::ACTION => AppProcessInterface::ROUTE_FAILED
-                ]
-            );
-        }
-
         $process = $this->AppProcess->create($attributes);
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
@@ -161,8 +150,21 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function allWorkflow($columns = array('*'))
     {
-       $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
+        $appProcesses = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
+    
+        $output = [];
         
+        foreach($appProcesses as $process) {
+            $tasks = $process->tasks()->orderBy('order','asc')->get();
+            foreach($tasks as $task){
+                    $output[$process->name][] = [
+                        'id' => $task->slug,
+                        'uri' => $task->action,
+                        'view' => $process->name.'/'.$task->slug,
+                    ];
+            }
+        }
+        return $output;
        return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,

@@ -24,14 +24,10 @@ class AppProcessTransformer extends TransformerAbstract
     {
         return [
             AppProcessInterface::ID => $AppProcess->id,
-            AppProcessInterface::PROCESS=>$AppProcess->process,
-            AppProcessInterface::ACTION => $AppProcess->action,
-            AppProcessInterface::SUB_PROCESS => $AppProcess->sub_process,
-            AppProcessInterface::TASK => $AppProcess->task,
+            AppProcessInterface::NAME=>$AppProcess->name,
             AppProcessInterface::ORDER => $AppProcess->order,
             AppProcessInterface::CREATED_AT => (string) $AppProcess->created_at,
             AppProcessInterface::UPDATED_AT => (string) $AppProcess->updated_at,
-            AppProcessInterface::DELETED_AT => (string) $AppProcess->deleted_at
         ];
     }
 }
