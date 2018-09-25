@@ -99,13 +99,24 @@ class AppProcessController extends Controller
     }
 
     /**
+     * process lists for update page
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function processAll()
+    {
+        return $this->AppProcessRepository->updateList();
+    }
+
+    /**
      * @author Amit kishore <amit.kishore@biz2credit.com>
      * 
      * @return string
      */
     public function createTask(Request $request)
     {
-        if ($request->parent_id=='null') {
+        if ($request->sub_process_id=='null') {
             // then insert record in app_tasks
             return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
         } else {

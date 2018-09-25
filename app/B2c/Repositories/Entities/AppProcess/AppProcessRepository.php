@@ -117,6 +117,19 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     }
 
     /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return string 
+     */
+
+    public function updateList($columns = ['*']) 
+    {
+        $appProcesses = $this->AppProcess->select($columns)->orderBy('order', 'asc')->get();
+
+        return $this->createProcessChild($appProcesses);
+    }
+
+    /**
      * Route Check method
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
@@ -210,6 +223,35 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
 
                 }
             }
+        }
+        return $output;
+    }
+     
+    /**
+     * Merge Workflow array
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param Collection $process
+     */
+    private function createProcessChild($processes) {
+        $output = [];
+        foreach($processes as $pkey => $process) {
+            $tasks = $process->tasks()->orderBy('order','asc')->get();
+            $output[] = ['name'=>$process->name];
+            $children = [];
+            if ($tasks) {
+                
+                foreach ($tasks as $key => $task) {
+                    $children[] = [
+                            'id' => $task->slug,
+                            'uri' => $task->action,
+                            'view' => $process->name.'/'.$task->slug,
+                            'transition'=> null
+                    ];
+                }
+            }
+            array_push($output[$pkey], ['children'=>$children]); 
+
         }
         return $output;
     }
