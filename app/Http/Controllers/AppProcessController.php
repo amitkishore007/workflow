@@ -79,6 +79,16 @@ class AppProcessController extends Controller
     }
 
     /**
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    * 
+    * @return string
+    */
+    public function routeList()
+    {
+        return $this->AppProcessRepository->route_list();
+    }
+
+    /**
      * @author Amit kishore <amit.kishore@biz2credit.com>
      * 
      * @return string
@@ -95,7 +105,7 @@ class AppProcessController extends Controller
      */
     public function createTask(Request $request)
     {
-        if ($request->has('parent_id')) {
+        if (isset($request->parent_id)) {
             // then insert record in app_tasks
             return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
         } else {
@@ -105,7 +115,8 @@ class AppProcessController extends Controller
                 'slug'       => $request->slug,
                 'process_id' => $request->parent_id,
                 'order'      => 1,
-                'action'     => $request->transition
+                'action'     => $request->action,
+                'hidden'     => $request->is_hidden
             ]);
         }
     }

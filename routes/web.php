@@ -30,6 +30,7 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		$router->get('/','AppProcessController@getAllProcess');
 		$router->post('/create-task','AppProcessController@createTask');
 		$router->get('/list','AppProcessController@processList');
+		$router->get('/routes','AppProcessController@routeList');
 		
 	});
 	$router->group(['prefix'=>'tasks'], function() use ($router) {

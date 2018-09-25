@@ -132,6 +132,22 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     }
 
     /**
+     * Get All Routes Response
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return array 
+     */
+    public function route_list()
+    {
+       return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $this->get_routes()
+        );
+    }
+
+    /**
      * Get All Routes
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
