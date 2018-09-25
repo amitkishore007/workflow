@@ -36,7 +36,13 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
      */
     public function all($columns = array('*'))
     {
-
+        $processList = $this->AppProcess->select($columns)->orderBy('order','asc')->get();
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $processList->toArray()
+        );
     }
 
     /**

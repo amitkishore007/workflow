@@ -83,6 +83,16 @@ class AppProcessController extends Controller
      * 
      * @return string
      */
+    public function processList()
+    {
+        return $this->AppProcessRepository->all();
+    }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
     public function createTask(Request $request)
     {
         if ($request->has('parent_id')) {
