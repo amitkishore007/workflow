@@ -109,11 +109,11 @@ class AppProcessController extends Controller
             // then insert record in app_tasks
             return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
         } else {
-            // insert record in process
+            // insert record in app_process
             return $this->AppTaskRepository->create([
                 'name'       => $request->title,
                 'slug'       => $request->slug,
-                'process_id' => $request->parent_id,
+                'process_id' => $request->sub_process_id,
                 'order'      => 1,
                 'action'     => $request->action,
             ]);
