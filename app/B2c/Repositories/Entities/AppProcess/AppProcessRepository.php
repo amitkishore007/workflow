@@ -126,7 +126,13 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     {
         $appProcesses = $this->AppProcess->select($columns)->orderBy('order', 'asc')->get();
 
-        return $this->createProcessChild($appProcesses);
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $this->createProcessChild($appProcesses)
+        );
+
     }
 
     /**
@@ -237,20 +243,18 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
         $output = [];
         foreach($processes as $pkey => $process) {
             $tasks = $process->tasks()->orderBy('order','asc')->get();
-            $output[] = ['name'=>$process->name];
+            $output[] = ['id'=>$process->id,'name'=>$process->name];
             $children = [];
             if ($tasks) {
                 
                 foreach ($tasks as $key => $task) {
                     $children[] = [
-                            'id' => $task->slug,
-                            'uri' => $task->action,
-                            'view' => $process->name.'/'.$task->slug,
-                            'transition'=> null
+                            'id' => $task->id,
+                            'name' => $task->name,
                     ];
                 }
             }
-            array_push($output[$pkey], ['children'=>$children]); 
+           $output[$pkey] = array_merge($output[$pkey], ['children'=>$children]); 
 
         }
         return $output;
