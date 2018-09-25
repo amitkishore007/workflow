@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\B2c\Repositories\Entities\AppProcess\AppTaskRepository;
 use App\B2c\Repositories\Entities\AppProcess\AppProcessRepository;
 
 class AppProcessController extends Controller
@@ -13,13 +14,19 @@ class AppProcessController extends Controller
     protected $AppProcessRepository;
 
     /**
+     * @var \App\B2c\Repositories\Entities\AppTaskRepository
+     */
+    protected $AppTaskRepository;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AppProcessRepository $AppProcessRepository)
+    public function __construct(AppProcessRepository $AppProcessRepository, AppTaskRepository $AppTaskRepository)
     {
         $this->AppProcessRepository = $AppProcessRepository;
+        $this->AppTaskRepository = $AppTaskRepository;
 
     }
 
@@ -64,13 +71,33 @@ class AppProcessController extends Controller
     /**
      * @author Amit kishore <amit.kishore@biz2credit.com>
      * 
-     * @param Request $Request
-     * 
      * @return string
      */
     public function getAllProcess()
     {
         return $this->AppProcessRepository->allWorkflow();
+    }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function createTask(Request $request)
+    {
+        if ($request->has('parent_id')) {
+            // then insert record in app_tasks
+            return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
+        } else {
+            // insert record in process
+            return $this->AppTaskRepository->create([
+                'name'       => $request->title,
+                'slug'       => $request->slug,
+                'process_id' => $request->parent_id,
+                'order'      => 1,
+                'action'     => $request->transition
+            ]);
+        }
     }
 
 }
