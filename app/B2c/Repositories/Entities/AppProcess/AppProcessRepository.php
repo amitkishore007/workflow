@@ -3,6 +3,7 @@
 namespace App\B2c\Repositories\Entities\AppProcess;
 
 use Illuminate\Support\Facades\Route;
+use App\B2c\Repositories\Models\AppTask;
 use \App\B2c\Repositories\Models\AppProcess;
 use Symfony\Component\HttpFoundation\Response;
 use App\B2c\Repositories\Contracts\ApiInterface;
@@ -22,10 +23,16 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     protected $AppProcess;
 
     /**
+     * @var App\B2c\Repositories\Models\AppTask
+     */
+    protected $AppTask;
+
+    /**
      * @param AppProcess $AppProcess
      */
-    public function __construct(AppProcess $AppProcess) {
+    public function __construct(AppProcess $AppProcess, AppTask $AppTask) {
         $this->AppProcess = $AppProcess;
+        $this->AppTask  = $AppTask;
     }
 
      /**
@@ -134,6 +141,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
         );
 
     }
+
 
     /**
      * Route Check method

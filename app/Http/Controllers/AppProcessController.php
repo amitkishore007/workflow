@@ -50,10 +50,10 @@ class AppProcessController extends Controller
      * 
      * @return string
      */
-    public function updateProcess(Request $Request, int $id)
+    public function updateProcess(Request $Request)
     {
-        $this->validate($Request, config('rules.v1.process_update'));
-        return $this->AppProcessRepository->update($Request->all(), $id);
+        // $this->validate($Request, config('rules.v1.process_update'));
+        return $this->AppTaskRepository->updateTaskOrder($Request->all());
     }
 
     /**

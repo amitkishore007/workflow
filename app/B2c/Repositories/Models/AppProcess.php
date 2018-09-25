@@ -68,4 +68,5 @@ class AppProcess extends Model {
         return $this->hasMany('App\B2c\Repositories\Models\AppTask','process_id');
     }
     
+   
 }

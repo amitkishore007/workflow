@@ -108,14 +108,37 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      */
     public function update(array $attributes, int $id)
     {
-        $process = $this->AppTask->findOrFail($id);
-        $updated = $process->update($attributes);
+    
+        $process = $this->AppTask->findOrFail($attributes['process_id']);
+
+
+        $updated = $process->updateTaskOrder($attributes);
         if ($updated) {
             return $this->createResponseStructure(
                 ApiInterface::SUCCESS_STATUS,
                 Response::HTTP_OK,
                 AppTaskInterface::RESOURCE,
                 $this->transformResponse($process, $process->taskTransform)
+            );
+        }
+    }
+
+    /**
+     * Update method
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param array $attributes
+     * @param int $id
+     */
+    public function updateTaskOrder(array $attributes)
+    {
+        $updated = $this->AppTask->updateTaskOrder($attributes);
+        if ($updated) {
+            return $this->createResponseStructure(
+                ApiInterface::SUCCESS_STATUS,
+                Response::HTTP_OK,
+                AppTaskInterface::RESOURCE,
+                $updated
             );
         }
     }

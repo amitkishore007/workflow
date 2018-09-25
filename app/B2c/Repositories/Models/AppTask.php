@@ -2,6 +2,7 @@
 
 namespace App\B2c\Repositories\Models;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\B2c\Repositories\Transformers\AppTaskTransformer;
 use App\B2c\Repositories\Transformers\AppProcessTransformer;
@@ -78,5 +79,20 @@ class AppTask extends Model
         return $this->belongsTo('App\B2c\Repositories\Models\AppProcess');
     }
     
-    
+    public function updateTaskOrder($attributes) {
+        // $attributes = [
+        //     'process_id'=>3,
+        //     'data'=> [
+        //         ['id'=>5, 'order'=>1],
+        //         ['id'=>6, 'order'=>2]
+        //     ]
+        // ];
+        $updated = [];
+        if (!empty($attributes['data'])) {
+            foreach($attributes['data'] as $attribute) {
+                $updated['task_id'] = self::where('id',$attribute['id'])->update(['order'=>$attribute['order']]);
+            }
+        }
+        return $updated;
+    }
 }
