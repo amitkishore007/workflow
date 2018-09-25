@@ -80,17 +80,11 @@ class AppTask extends Model
     }
     
     public function updateTaskOrder($attributes) {
-        // $attributes = [
-        //     'process_id'=>3,
-        //     'data'=> [
-        //         ['id'=>5, 'order'=>1],
-        //         ['id'=>6, 'order'=>2]
-        //     ]
-        // ];
         $updated = [];
         if (!empty($attributes['data'])) {
-            foreach($attributes['data'] as $attribute) {
-                $updated['task_id'] = self::where('id',$attribute['id'])->update(['order'=>$attribute['order']]);
+            $data = json_decode($attributes['data']);
+            foreach ($data as $attribute) {
+                $updated['task_id'] = self::where('id', $attribute->id)->update(['order'=>$attribute->order]);
             }
         }
         return $updated;
