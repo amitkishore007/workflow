@@ -29,8 +29,9 @@ return [
                         'hash'     => 'required'
                 ],
                 'process_create' => [
-                        'name'  => 'required|min:3|unique:app_process',
-                        'order' => 'required|numeric|unique:app_process',
+                        'name'   => 'min:3|unique:app_process',
+                        'order'  => 'numeric|unique:app_process',
+                        'action' => 'unique:app_process',
                 ],
                 'task_create' => [
                         'name'       => 'required|min:3',
