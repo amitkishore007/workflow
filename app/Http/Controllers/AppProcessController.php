@@ -105,7 +105,7 @@ class AppProcessController extends Controller
      */
     public function createTask(Request $request)
     {
-        if (isset($request->parent_id)) {
+        if ($request->parent_id=='null') {
             // then insert record in app_tasks
             return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
         } else {
@@ -116,7 +116,6 @@ class AppProcessController extends Controller
                 'process_id' => $request->parent_id,
                 'order'      => 1,
                 'action'     => $request->action,
-                'hidden'     => $request->is_hidden
             ]);
         }
     }
