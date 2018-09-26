@@ -89,4 +89,17 @@ class AppTask extends Model
         }
         return $updated;
     }
+
+    /**
+    * Accessor Method to convert slug into lowercase
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    *
+    * @param timestamp $value
+    *
+    * @return string
+    */
+    public function getSlugAttribute($value) 
+    {
+        return strtolower($value);
+    }
 }

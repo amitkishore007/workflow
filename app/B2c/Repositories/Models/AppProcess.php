@@ -67,6 +67,18 @@ class AppProcess extends Model {
     {
         return $this->hasMany('App\B2c\Repositories\Models\AppTask','process_id');
     }
-    
-   
+
+    /**
+    * Accessor Method to convert process into lowercase
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    *
+    * @param timestamp $value
+    *
+    * @return string
+    */
+    public function getNameAttribute($value) 
+    {
+        return strtolower($value);
+    }
+
 }
