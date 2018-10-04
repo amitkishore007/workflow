@@ -14,5 +14,6 @@ return [
     'INVALID_EMAIL_PHONE' => 'Please enter valid email or phone',
     'INVALID_PARAMETERS' => 'Please enter valid parameters',
     'LINK_EXPIRED' => 'The link is expired or invalid',
-    'INTERNAL_SERVER_ERROR' => 'Internal Server Error'
+    'INTERNAL_SERVER_ERROR' => 'Internal Server Error',
+    'QUERY_ERROR'           => 'Could not perform operation, please check your request',
 ];

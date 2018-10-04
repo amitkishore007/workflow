@@ -1,8 +1,8 @@
 <?php 
 namespace App\B2c\Repositories\Exceptions;
 
-use RuntimeException;
+use Exception;
 
-class BlankDataException extends RuntimeException
+class BlankDataException extends Exception
 {
 }

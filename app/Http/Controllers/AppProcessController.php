@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\B2c\Repositories\Exceptions\CustomException;
+use App\B2c\Repositories\Exceptions\BlankDataException;
 use App\B2c\Repositories\Entities\AppProcess\AppTaskRepository;
 use App\B2c\Repositories\Entities\AppProcess\AppProcessRepository;
+use App\B2c\Repositories\Entities\AppProcess\AppTaskFieldRepository;
 
 class AppProcessController extends Controller
 {
@@ -19,15 +22,20 @@ class AppProcessController extends Controller
     protected $AppTaskRepository;
 
     /**
+     * @var \App\B2c\Repositories\Entities\AppTaskField\AppTaskFieldRepository
+     */
+    protected $taskField;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(AppProcessRepository $AppProcessRepository, AppTaskRepository $AppTaskRepository)
+    public function __construct(AppProcessRepository $AppProcessRepository, AppTaskRepository $AppTaskRepository, AppTaskFieldRepository $taskField)
     {
         $this->AppProcessRepository = $AppProcessRepository;
         $this->AppTaskRepository = $AppTaskRepository;
-
+        $this->taskField = $taskField;
     }
 
      /**
@@ -79,6 +87,26 @@ class AppProcessController extends Controller
     }
 
     /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function getAllMainProcess()
+    {
+        return $this->AppProcessRepository->getAllMainProcess();
+    }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function getAllSubProcess(int $id)
+    {
+        return $this->AppProcessRepository->getAllSubProcess($id);
+    }
+
+    /**
     * @author Amit kishore <amit.kishore@biz2credit.com>
     * 
     * @return string
@@ -109,6 +137,19 @@ class AppProcessController extends Controller
         return $this->AppProcessRepository->updateList();
     }
 
+
+    /**
+     * process lists for update page
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function subProcessAll()
+    {
+        return $this->AppProcessRepository->getSubprocess();
+    }
+
+
     /**
      * @author Amit kishore <amit.kishore@biz2credit.com>
      * 
@@ -131,4 +172,13 @@ class AppProcessController extends Controller
         }
     }
 
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     * 
+     * @return string
+     */
+    public function getSubProcessField($subProcessid)
+    {
+        return $this->taskField->taskFieldBySubProcessId($subProcessid);
+    }
 }

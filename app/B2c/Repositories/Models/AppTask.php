@@ -102,4 +102,8 @@ class AppTask extends Model
     {
         return strtolower($value);
     }
+
+    public function fields() {
+        return $this->hasMany('App\B2c\Repositories\Models\AppField','process_id');
+    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Exceptions;
 
-use App\B2c\Repositories\Entities\Api\ApiRepository;
 use Exception;
+use Illuminate\Database\QueryException;
 use GuzzleHttp\Exception\ServerException;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
-use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+use App\B2c\Repositories\Entities\Api\ApiRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
@@ -73,6 +74,10 @@ class Handler extends ExceptionHandler
 
         if ($Exception instanceof ServerException) {
             return $this->ApiRepository->createResponseStructure('failed', Response::HTTP_INTERNAL_SERVER_ERROR, 'server_exception', config('messages.HTTP_REQUEST_FIALED'));
+        }
+
+        if ($Exception instanceof QueryException) {
+            return $this->ApiRepository->createResponseStructure('failed', Response::HTTP_BAD_REQUEST, 'query_exception', ['error'=>config('messages.QUERY_ERROR')]);
         }
 
         return parent::render($Request, $Exception);

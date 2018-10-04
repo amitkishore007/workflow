@@ -3,6 +3,8 @@ namespace App\B2c\Repositories\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use App\B2c\Repositories\Exceptions\CustomException;
+use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 
 /**
  * @author Amit kishore <amit.kishore@biz2credit.com>
@@ -50,9 +52,15 @@ class B2cServiceProvider extends ServiceProvider
 		$this->app->bind(
             'App\B2c\Repositories\Contracts\AppTaskInterface',
             'App\B2c\Repositories\Entities\AppProcess\AppTaskRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\AppTaskFieldInterface',
+            'App\B2c\Repositories\Entities\AppProcess\AppTaskFieldRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\ErrorsInterface',
+            'App\B2c\Repositories\Entities\AppProcess\ErrorsRepository'
         );
-
-
 
 
 	}
@@ -70,6 +78,7 @@ class B2cServiceProvider extends ServiceProvider
 	            return preg_match('/^[0-9]*$/', $value) && strlen($value) >= 10;
 	        }
 	        return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
-	    });
+		});
+		
 	}
 }

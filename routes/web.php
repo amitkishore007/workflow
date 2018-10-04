@@ -23,11 +23,18 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 	/**
 	 * AppLication Process routes
 	 */
+
+	$router->group(['prefix'=>'sub-process'], function() use ($router) {
+		$router->get('/{id}','AppProcessController@getAllSubProcess');
+		$router->get('/fields/{id}','AppProcessController@getSubProcessField');
+	});
+
 	$router->group(['prefix'=>'process'], function() use ($router) {
+		$router->get('/','AppProcessController@getAllMainProcess');
+		// $router->get('/','AppProcessController@getAllProcess');
 		$router->post('create','AppProcessController@createProcess');
 		$router->post('update','AppProcessController@updateProcess');
 		$router->delete('delete/{id}','AppProcessController@deleteProcess');
-		$router->get('/','AppProcessController@getAllProcess');
 		$router->post('/create-task','AppProcessController@createTask');
 		$router->get('/list','AppProcessController@processList');
 		$router->get('/all','AppProcessController@processAll');
@@ -36,6 +43,7 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 	});
 	$router->group(['prefix'=>'tasks'], function() use ($router) {
 		$router->post('create','AppTaskController@createTask');
+		$router->get('get-fields','TaskFieldsController@getAllTaskFields');
 	});
 	
 	$router->group(['prefix'=>'application'], function() use ($router) {

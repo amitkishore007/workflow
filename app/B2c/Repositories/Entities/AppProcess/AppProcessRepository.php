@@ -254,7 +254,6 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
             $output[] = ['id'=>$process->id,'name'=>$process->name];
             $children = [];
             if ($tasks) {
-                
                 foreach ($tasks as $key => $task) {
                     $children[] = [
                             'id' => $task->id,
@@ -269,5 +268,31 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
     }
      
 
+    public function getAllMainProcess() {
+        $process = $this->AppProcess->where('parent_id',0)->orderBy('order','asc')->get();
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $process->toArray()
+        );
+    }
 
+    public function getAllSubProcess($id) {
+        if (is_null($id) || !isset($id)) {
+            return $this->createResponseStructure(
+                ApiInterface::SUCCESS_FAILED,
+                Response::HTTP_BAD_REQUEST,
+                AppProcessInterface::RESOURCE
+                
+            );
+        } 
+        $subProcess = $this->AppProcess->where('parent_id',$id)->orderBy('order','asc')->get();
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppProcessInterface::RESOURCE,
+            $subProcess->toArray()
+        );
+    }
 }
