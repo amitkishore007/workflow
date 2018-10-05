@@ -287,7 +287,7 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
                 
             );
         } 
-        $subProcess = $this->AppProcess->where('parent_id',$id)->orderBy('order','asc')->get();
+        $subProcess = $this->AppProcess->where('id',$id)->orderBy('order','asc')->get();
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,

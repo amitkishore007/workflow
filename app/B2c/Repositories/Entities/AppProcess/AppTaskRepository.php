@@ -96,6 +96,7 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
         unset($attributes['title']);
         $attributes['order'] = 1;
         // return $attributes;
+        $attributes['form_fields'] = json_decode($attributes['form_fields'], true);
         $task = $this->AppTask->create($attributes);
         // return $task->fields()->get();
         // return $attributes['form_fields'];
