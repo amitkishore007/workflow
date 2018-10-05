@@ -86,4 +86,15 @@ class AppTaskController extends Controller
     {
         return $this->AppTaskRepository->allFields($id);
     }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return string
+     */
+
+    public function allTasks() 
+    {
+        return $this->AppTaskRepository->allTasks();
+    }
 }

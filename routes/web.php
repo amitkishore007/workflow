@@ -45,6 +45,7 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		
 	});
 	$router->group(['prefix'=>'tasks'], function() use ($router) {
+		$router->get('/','AppTaskController@allTasks');
 		$router->post('create','AppTaskController@createTask');
 		$router->get('get-fields','TaskFieldsController@getAllTaskFields');
 		$router->get('task-fields/{id}','AppTaskController@getAllTaskField');

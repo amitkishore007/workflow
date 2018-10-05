@@ -276,4 +276,15 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
             $output
         );
     }
+
+    public function allTasks() 
+    {
+        $appTaskes = $this->AppTask->select('id as task_id','name')->orderBy('order', 'asc')->get();
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppTaskInterface::RESOURCE,
+            $appTaskes->toArray()
+        );
+    }
 }
