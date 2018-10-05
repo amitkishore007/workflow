@@ -90,12 +90,21 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
             );
         }
 
-        $process = $this->AppTask->create($attributes);
+        $attributes['name'] = $attributes['title'];
+        $attributes['process_id'] = $attributes['sub_process_id'];
+        unset($attributes['sub_process_id']);
+        unset($attributes['title']);
+        $attributes['order'] = 1;
+        // return $attributes;
+        $task = $this->AppTask->create($attributes);
+        // return $task->fields()->get();
+        // return $attributes['form_fields'];
+        $fields = $task->fields()->sync($attributes['form_fields']);
         return $this->createResponseStructure(
             ApiInterface::SUCCESS_STATUS,
             Response::HTTP_OK,
             AppTaskInterface::RESOURCE,
-            $this->transformResponse($process, $process->taskTransform)
+            $this->transformResponse($task, $task->taskTransform)
         );
     }
 

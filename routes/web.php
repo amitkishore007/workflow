@@ -38,7 +38,7 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		$router->post('update','AppProcessController@updateProcess');
 		$router->delete('delete/{id}','AppProcessController@deleteProcess');
 		$router->post('/create-subprocess','AppProcessController@createSubProcess');
-		$router->post('/create-task','AppProcessController@createTask');
+		// $router->post('/create-task','AppProcessController@createTask');
 		$router->get('/list','AppProcessController@processList');
 		$router->get('/all','AppProcessController@processAll');
 		$router->get('/routes','AppProcessController@routeList');

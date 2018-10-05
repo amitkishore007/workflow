@@ -104,6 +104,6 @@ class AppTask extends Model
     }
 
     public function fields() {
-        return $this->hasMany('App\B2c\Repositories\Models\AppField','process_id');
+        return $this->belongsToMany('App\B2c\Repositories\Models\AppField','data_row_app_task','app_task_id','data_row_id');
     }
 }
