@@ -232,4 +232,37 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
         }
         return $output;
     }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param int $id
+     */
+    public function allFields(int $id)
+    {
+        $task = $this->AppTask->find($id);
+        $output = [];
+        if (!$task->fields()->count()) {
+            return $this->createResponseStructure(
+                ApiInterface::FAILED_STATUS,
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                AppTaskInterface::RESOURCE,
+                [
+                    AppTaskInterface::ACTION => AppTaskInterface::ROUTE_FAILED
+                ]
+            );
+        }
+        foreach($task->fields as $field) {
+            $output[] = [
+                'id'=>$field->id,
+                'name'=>$field->name
+            ];
+        }
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppTaskInterface::RESOURCE,
+            $output
+        );
+    }
 }

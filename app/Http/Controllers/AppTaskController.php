@@ -70,12 +70,20 @@ class AppTaskController extends Controller
     /**
      * @author Amit kishore <amit.kishore@biz2credit.com>
      *
-     * @param Request $Request
-     *
      * @return string
      */
     public function getAllTask()
     {
         return $this->AppTaskRepository->allWorkflow();
+    }
+
+     /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return string
+     */
+    public function getAllTaskField(int $id)
+    {
+        return $this->AppTaskRepository->allFields($id);
     }
 }
