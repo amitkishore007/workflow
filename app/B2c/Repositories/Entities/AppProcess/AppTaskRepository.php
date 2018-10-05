@@ -242,6 +242,17 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
     {
         $task = $this->AppTask->find($id);
         $output = [];
+        if (!$task) {
+            return $this->createResponseStructure(
+                ApiInterface::FAILED_STATUS,
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                AppTaskInterface::RESOURCE,
+                [
+                    AppTaskInterface::ACTION => 'No Task Found !'
+                ]
+            );
+        }
+
         if (!$task->fields()->count()) {
             return $this->createResponseStructure(
                 ApiInterface::FAILED_STATUS,
