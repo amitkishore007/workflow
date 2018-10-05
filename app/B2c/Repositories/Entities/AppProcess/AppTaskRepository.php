@@ -248,7 +248,7 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 AppTaskInterface::RESOURCE,
                 [
-                    AppTaskInterface::ACTION => AppTaskInterface::ROUTE_FAILED
+                    AppTaskInterface::ACTION => 'No Fields found!'
                 ]
             );
         }
