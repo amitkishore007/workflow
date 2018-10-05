@@ -38,7 +38,7 @@ class AppTaskController extends Controller
     */
     public function createTask(Request $Request)
     {
-        $this->validate($Request, config('rules.v1.task_create'));
+        // $this->validate($Request, config('rules.v1.task_create'));
         return $this->AppTaskRepository->create($Request->all());
     }
 

@@ -155,21 +155,11 @@ class AppProcessController extends Controller
      * 
      * @return string
      */
-    public function createTask(Request $request)
+    public function createSubProcess(Request $request)
     {
-        if ($request->sub_process_id=='null') {
-            // then insert record in app_tasks
-            return $this->AppProcessRepository->create(['name'=>$request->title,'order'=>1]);
-        } else {
-            // insert record in app_process
-            return $this->AppTaskRepository->create([
-                'name'       => $request->title,
-                'slug'       => $request->slug,
-                'process_id' => $request->sub_process_id,
-                'order'      => 1,
-                'action'     => $request->action,
-            ]);
-        }
+        // then insert record in app_tasks
+        return $this->AppProcessRepository->create(['name'=>$request->name,'parent_id'=>$request->process_id,'order'=>1]);
+       
     }
 
     /**

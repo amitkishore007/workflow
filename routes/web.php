@@ -29,12 +29,15 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		$router->get('/fields/{id}','AppProcessController@getSubProcessField');
 	});
 
+	
+
 	$router->group(['prefix'=>'process'], function() use ($router) {
 		$router->get('/','AppProcessController@getAllMainProcess');
 		// $router->get('/','AppProcessController@getAllProcess');
 		$router->post('create','AppProcessController@createProcess');
 		$router->post('update','AppProcessController@updateProcess');
 		$router->delete('delete/{id}','AppProcessController@deleteProcess');
+		$router->post('/create-subprocess','AppProcessController@createSubProcess');
 		$router->post('/create-task','AppProcessController@createTask');
 		$router->get('/list','AppProcessController@processList');
 		$router->get('/all','AppProcessController@processAll');
