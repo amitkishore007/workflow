@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2018 at 08:04 AM
+-- Generation Time: Oct 05, 2018 at 08:15 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.1.17
 
@@ -117,7 +117,8 @@ INSERT INTO `app_process` (`id`, `name`, `order`, `parent_id`, `created_at`, `up
 (3, 'Register', 1, 1, '2018-09-25 07:23:28', '2018-09-25 07:23:28'),
 (5, 'application', 1, 1, '2018-09-25 07:24:03', '2018-09-25 07:24:03'),
 (6, 'login', 1, 1, '2018-09-25 07:24:13', '2018-09-25 07:24:13'),
-(7, 'customer journey', 1, 0, NULL, NULL);
+(7, 'customer journey', 1, 0, NULL, NULL),
+(8, 'register test', 1, 0, '2018-10-05 06:13:52', '2018-10-05 06:13:52');
 
 -- --------------------------------------------------------
 
@@ -423,7 +424,7 @@ ALTER TABLE `app_owners`
 -- AUTO_INCREMENT for table `app_process`
 --
 ALTER TABLE `app_process`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `app_tasks`
@@ -435,7 +436,7 @@ ALTER TABLE `app_tasks`
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `data_row_validation`
