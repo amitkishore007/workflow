@@ -10,6 +10,7 @@ class AppProcess extends Model {
 
     const TABLE       = "app_process";
     const NAME        = "name";
+    const PARENT_ID   = "parent_id";
     const CREATED_AT  = "created_at";
     const UPDATED_AT  = 'updated_at';
     const ORDER       = 'order';  
@@ -23,7 +24,8 @@ class AppProcess extends Model {
      */
     protected $fillable = [
         self::NAME,
-        self::ORDER
+        self::ORDER,
+        self::PARENT_ID
     ];
 
     /**
