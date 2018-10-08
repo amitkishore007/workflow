@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 09:32 AM
+-- Generation Time: Oct 08, 2018 at 11:17 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.1.17
 
@@ -156,7 +156,8 @@ INSERT INTO `app_tasks` (`id`, `process_id`, `name`, `order`, `action`, `page`, 
 (16, 5, 'company indo', 1, '/v1/application/coapplicant/company-info', '', 'company_info', '2018-09-26 06:40:45', '2018-09-26 06:40:45', 1),
 (17, 5, 'coapplicant address', 1, '/v1/application/coapplicant/address', '', 'coapplicant_address', '2018-09-26 06:41:26', '2018-09-26 06:41:26', 1),
 (18, 5, 'coapplicant occupation', 1, '/v1/application/coapplicant/occupation-detail', '', 'coapplicant_occupation', '2018-09-26 06:42:02', '2018-09-26 06:42:02', 1),
-(19, 6, 'login', 1, '/v1/login', '', 'login', '2018-09-26 09:43:29', '2018-09-26 09:43:29', 1);
+(19, 6, 'login', 1, '/v1/login', '', 'login', '2018-09-26 09:43:29', '2018-09-26 09:43:29', 1),
+(49, 8, 'create application', 1, '/v1/application/create', '', 'create_application', '2018-10-05 10:31:41', '2018-10-05 10:31:41', 1);
 
 -- --------------------------------------------------------
 
@@ -191,7 +192,53 @@ INSERT INTO `data_rows` (`id`, `name`, `process_id`, `type`, `api_action`, `labe
 (4, 'phone', 3, 'text', NULL, 'Phone Number', 4, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"max\",\"value\":\"12\",\"message\":null},{\"rule\":\"min\",\"value\":\"8\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-01 07:32:02', '2018-10-01 07:32:02'),
 (5, 'password', 3, 'text', NULL, 'Password', 5, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"5\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-01 07:32:34', '2018-10-01 07:32:34'),
 (6, 'email', 6, 'text', NULL, 'Email Address', 1, 1, 0, NULL, '[{\"rule\":\"email\",\"value\":null,\"message\":null}]', '2018-10-01 07:32:56', '2018-10-01 07:32:56'),
-(7, 'password', 6, 'text', NULL, 'Password', 2, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-01 07:33:48', '2018-10-01 07:33:48');
+(7, 'password', 6, 'text', NULL, 'Password', 2, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-01 07:33:48', '2018-10-01 07:33:48'),
+(9, 'business_type', 5, 'text', NULL, 'Business Type', 1, 1, 0, NULL, '[{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 00:55:29', '2018-10-08 00:55:29'),
+(10, 'time_in_business', 5, 'number', NULL, 'Time In Business', 2, 1, 0, NULL, '[{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 00:56:12', '2018-10-08 00:56:12'),
+(11, 'company_turnover', 5, 'text', NULL, 'Company Turnover', 3, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:03:30', '2018-10-08 01:03:30'),
+(12, 'was_company_profitable_ls', 5, 'text', NULL, 'Was Company Profitable Last Year', 4, 1, 0, NULL, '[{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:05:37', '2018-10-08 01:05:37'),
+(13, 'ownership_status', 5, 'text', NULL, 'Ownership Status', 5, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:06:14', '2018-10-08 01:06:14'),
+(14, 'flat_or_society_name', 5, 'text', NULL, 'Flat No./Society Name', 6, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:07:59', '2018-10-08 01:07:59'),
+(15, 'roaad_no_name', 5, 'text', NULL, 'Road No./ Name', 7, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:08:42', '2018-10-08 01:08:42'),
+(16, 'area_locality', 5, 'text', NULL, 'Area/Locality', 8, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:09:31', '2018-10-08 01:09:31'),
+(17, 'state', 5, 'text', NULL, 'State', 9, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:13:29', '2018-10-08 01:13:29'),
+(18, 'City', 5, 'text', NULL, 'City', 10, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:13:54', '2018-10-08 01:13:54'),
+(19, 'district', 5, 'text', NULL, 'District', 11, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:15:31', '2018-10-08 01:15:31'),
+(20, 'landmark', 5, 'text', NULL, 'Landmark', 12, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:16:10', '2018-10-08 01:16:10'),
+(21, 'pincode', 5, 'number', NULL, 'pincode', 13, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:16:31', '2018-10-08 01:16:31'),
+(22, 'telephone', 5, 'text', NULL, 'Telephone', 14, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"max\",\"value\":\"12\",\"message\":null},{\"rule\":\"min\",\"value\":\"8\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:18:04', '2018-10-08 01:18:04'),
+(23, 'end_use', 5, 'text', NULL, 'End Use', 1, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:57:21', '2018-10-08 01:57:21'),
+(24, 'requested_loan_amount', 5, 'text', NULL, 'Request Loan amount', 2, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:57:50', '2018-10-08 01:57:50'),
+(25, 'collateral_type', 5, 'text', NULL, 'Collateral Type', 3, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:58:29', '2018-10-08 01:58:29'),
+(26, 'owned_or_third_party', 5, 'text', NULL, 'Owned/ Third Party', 4, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 01:59:57', '2018-10-08 01:59:57'),
+(27, 'machinery_amount', 5, 'text', NULL, 'Machinery Amount', 5, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:01:24', '2018-10-08 02:01:24'),
+(28, 'requested_amount', 5, 'text', NULL, 'Requested Amount', 6, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:02:58', '2018-10-08 02:02:58'),
+(29, 'ltv_percent', 5, 'text', NULL, 'LTV Percent', 7, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:04:04', '2018-10-08 02:04:04'),
+(30, 'is_machinary_new', 5, 'text', NULL, 'Is Machinery New ?', 8, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:05:07', '2018-10-08 02:05:07'),
+(31, 'type_of_equipment', 5, 'text', NULL, 'Type of Equipment', 9, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:06:05', '2018-10-08 02:06:05'),
+(32, 'name_of_equipment_manufacturer', 5, 'text', NULL, 'Name of Equipment Manufacturer', 10, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:07:50', '2018-10-08 02:07:50'),
+(33, 'cost_of_equipment', 5, 'text', NULL, 'Cost of Equipment', 11, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:08:46', '2018-10-08 02:08:46'),
+(34, 'number_of_machines', 5, 'number', NULL, 'Number of Machines', 12, 1, 0, NULL, '[{\"rule\":\"min\",\"value\":\"1\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:10:14', '2018-10-08 02:10:14'),
+(35, 'imported_or_indian', 5, 'text', NULL, 'Imported/Indian', 13, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:11:04', '2018-10-08 02:11:04'),
+(36, 'model_no', 5, 'text', NULL, 'Model Number', 14, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:11:56', '2018-10-08 02:11:56'),
+(37, 'loan_purpose', 5, 'textarea', NULL, 'Loan purpose', 15, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 02:13:28', '2018-10-08 02:13:28'),
+(38, 'company_name', 5, 'text', NULL, 'Company Name', 16, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"5\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:22:57', '2018-10-08 03:22:57'),
+(39, 'date_of_establishment', 5, 'text', NULL, 'Date of Establishment', 17, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:23:41', '2018-10-08 03:23:41'),
+(40, 'company_pan', 5, 'text', NULL, 'Company PAN', 18, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"10\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:25:17', '2018-10-08 03:25:17'),
+(41, 'company_cin', 5, 'text', NULL, 'CIN of Company', 19, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"21\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:26:10', '2018-10-08 03:26:10'),
+(42, 'annual_sale', 5, 'text', NULL, 'Annual Sale', 20, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:26:36', '2018-10-08 03:26:36'),
+(43, 'itr_income', 5, 'text', NULL, 'ITP Income', 21, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:26:59', '2018-10-08 03:26:59'),
+(44, 'company_tin', 5, 'text', NULL, 'TIN of Company', 22, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"11\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:27:38', '2018-10-08 03:27:38'),
+(45, 'years_in_business', 5, 'number', NULL, 'Years in business', 23, 1, 0, NULL, '[{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:28:16', '2018-10-08 03:28:16'),
+(46, 'applicant_title', 5, 'text', NULL, 'Coapplicant Title', 24, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:33:18', '2018-10-08 03:33:18'),
+(47, 'applicant_name', 5, 'text', NULL, 'Coapplicant Name', 25, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"min\",\"value\":\"3\",\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:34:00', '2018-10-08 03:34:00'),
+(48, 'applicant_gender', 5, 'text', NULL, 'Coapplicant Gender', 26, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:36:14', '2018-10-08 03:36:14'),
+(49, 'applicant_marital_status', 5, 'text', NULL, 'Coapplicant Marital Status', 27, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:40:32', '2018-10-08 03:40:32'),
+(50, 'applicant_dob', 5, 'text', NULL, 'Coapplicant Date of Birth', 28, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:41:31', '2018-10-08 03:41:31'),
+(51, 'mother_maiden_name', 5, 'text', NULL, 'Mother Maiden Name', 29, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:42:33', '2018-10-08 03:42:33'),
+(52, 'applicant_category', 5, 'text', NULL, 'Coapplicant Category', 30, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:45:14', '2018-10-08 03:45:14'),
+(53, 'applicant_designation', 5, 'text', NULL, 'Coapplicant Designation', 31, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:46:01', '2018-10-08 03:46:01'),
+(54, 'applicant_appointment_date', 5, 'text', NULL, 'Coapplicant Appointment Date', 32, 1, 0, NULL, '[{\"rule\":\"alpha\",\"value\":null,\"message\":null},{\"rule\":\"required\",\"value\":null,\"message\":null}]', '2018-10-08 03:46:49', '2018-10-08 03:46:49');
 
 -- --------------------------------------------------------
 
@@ -206,6 +253,16 @@ CREATE TABLE `data_row_app_task` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `data_row_app_task`
+--
+
+INSERT INTO `data_row_app_task` (`id`, `app_task_id`, `data_row_id`, `created_at`, `updated_at`) VALUES
+(22, 49, 1, NULL, NULL),
+(23, 49, 2, NULL, NULL),
+(24, 49, 3, NULL, NULL),
+(25, 49, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,19 +471,19 @@ ALTER TABLE `app_process`
 -- AUTO_INCREMENT for table `app_tasks`
 --
 ALTER TABLE `app_tasks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `data_row_app_task`
 --
 ALTER TABLE `data_row_app_task`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `migrations`
