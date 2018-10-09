@@ -186,7 +186,19 @@ class AppProcessRepository extends ApiRepository implements AppProcessInterface
         $routes = Route::getRoutes();
         foreach($routes as $route)
         {
-            $output[] = $route['uri'];
+            if(array_key_exists('as', $route['action'])) {
+                $r = [
+                    'name'=> $route['action']['as'],
+                    'uri'=> $route['uri']
+                ];
+            } else {
+                $r = [
+                    'name'=> '',
+                    'uri'=> $route['uri']
+                ];
+            }  
+            $output[] = $r;
+            // $output[] = $route['uri'];
         }
         return $output;
     }
