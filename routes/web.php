@@ -15,35 +15,64 @@
  * Microservice Route Group
  */
 $router->group(['prefix'=>'v1'],function() use ($router){
-	$router->post('otp','UserController@otp');
-	$router->post('register','UserController@register');
-	$router->post('isEmailVerified','UserController@isEmailVerified');
-	$router->post('login','UserController@login');
-	$router->post('password','UserController@setpassword');
-	/**
-	 * AppLication Process routes
-	 */
-
-	$router->group(['prefix'=>'sub-process'], function() use ($router) {
-		$router->get('/{id}','AppProcessController@getAllSubProcess');
-		$router->get('/fields/{id}','AppProcessController@getSubProcessField');
-	});
-
 	
+	/**  request OTP **/
+	$router->post('otp','UserController@otp');
+	
+	/** * User Registration **/
+	$router->post('register','UserController@register');
 
+	/** * validated user email address **/
+	$router->post('isEmailVerified','UserController@isEmailVerified');
+
+	/** * User login **/
+	$router->post('login','UserController@login');
+
+	/** * create password for user **/
+	$router->post('password','UserController@setpassword');
+	
+	/** Process Routes **/
 	$router->group(['prefix'=>'process'], function() use ($router) {
+		
+		/** Get All the Process **/
 		$router->get('/','AppProcessController@getAllMainProcess');
+
+		/** Get all the process: old **/
 		// $router->get('/','AppProcessController@getAllProcess');
+		
+		/** Create process **/
 		$router->post('create','AppProcessController@createProcess');
+		
+		/** Update process **/
 		$router->post('update','AppProcessController@updateProcess');
+		
+		/** Delete a process **/
 		$router->delete('delete/{id}','AppProcessController@deleteProcess');
-		$router->post('/create-subprocess','AppProcessController@createSubProcess');
+		
+		/** get the processlist **/
 		// $router->post('/create-task','AppProcessController@createTask');
 		$router->get('/list','AppProcessController@processList');
 		$router->get('/all','AppProcessController@processAll');
 		$router->get('/routes','AppProcessController@routeList');
 		
 	});
+	
+	/** Sub Process routes **/
+	$router->group(['prefix'=>'sub-process'], function() use ($router) {
+
+		/** Get All Sub Process by process id **/
+		$router->get('/{id}','AppProcessController@getAllSubProcess');
+		
+		/** Get All the field by subprocess id **/
+		$router->get('/fields/{id}','AppProcessController@getSubProcessField');
+
+		/** Create a subprocess **/
+        $router->post('/create-subprocess', 'AppProcessController@createSubProcess');
+
+
+		$router->get('/tasks/{sub_process_id}','AppTaskController@subProcessTasks');
+	});
+
 	$router->group(['prefix'=>'tasks'], function() use ($router) {
 		$router->get('/','AppTaskController@allTasks');
 		$router->post('create','AppTaskController@createTask');

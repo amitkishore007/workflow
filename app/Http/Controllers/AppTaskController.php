@@ -92,9 +92,19 @@ class AppTaskController extends Controller
      *
      * @return string
      */
-
     public function allTasks() 
     {
         return $this->AppTaskRepository->allTasks();
+    }
+
+     /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return string
+     */
+    public function subProcessTasks($sub_process_id) 
+    {
+        return $this->AppTaskRepository->subProcessTasks($sub_process_id);
+
     }
 }
