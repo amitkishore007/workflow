@@ -237,6 +237,7 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                 if(!is_null($field->relationship)) {
                     $relation = json_decode($field->relationship);
                      $output[] = [
+                        'task_id'=>$task->id,
                         'name'=>$field->name,
                         'type'=>$field->type,
                         'label'=>$field->label,
@@ -247,6 +248,7 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                     ];
                 } else {
                      $output[] = [
+                        'task_id'=>$task->id,
                         'name'=>$field->name,
                         'type'=>$field->type,
                         'label'=>$field->label,
