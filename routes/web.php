@@ -136,4 +136,10 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		// });
 	});
 
+	$router->group(['prefix'=>'workflow'], function() use ($router) {
+		/** Owner summary **/
+        $router->post('/create', ['as'=>'create_workflow','uses'=>'AppWorkflowController@createWorkflow']);
+
+	});
+
 });

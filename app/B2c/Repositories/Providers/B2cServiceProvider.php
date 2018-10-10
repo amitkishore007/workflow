@@ -60,7 +60,12 @@ class B2cServiceProvider extends ServiceProvider
 		$this->app->bind(
             'App\B2c\Repositories\Contracts\ErrorsInterface',
             'App\B2c\Repositories\Entities\AppProcess\ErrorsRepository'
+		);
+		$this->app->bind(
+            'App\B2c\Repositories\Contracts\AppWorkflowInterface',
+            'App\B2c\Repositories\Entities\workflow\AppWorkflowRepository'
         );
+
 
 
 	}
