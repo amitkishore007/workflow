@@ -14,4 +14,8 @@ class AppWorkflow extends Model
         'next_task',
         'rules'
     ];
+
+    public function task() {
+        return $this->belongsTo('App\B2c\Repositories\Models\AppTask','task_id');
+    }
 }

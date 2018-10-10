@@ -87,7 +87,10 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 		
 		$router->get('get-fields',['as'=>'all_task_fields','uses'=>'TaskFieldsController@getAllTaskFields']);
 		
+		$router->post('get-fields',['as'=>'task_field_by_slug','uses'=>'TaskFieldsController@getTaskFieldBySlug']);
+		
 		$router->get('task-fields/{id}',['as'=>'task_field','uses'=>'AppTaskController@getAllTaskField']);
+		
 	
 	});
 	

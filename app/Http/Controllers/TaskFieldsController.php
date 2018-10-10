@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\B2c\Repositories\Contracts\ErrorsInterface;
 use App\B2c\Repositories\Exceptions\CustomException;
 use App\B2c\Repositories\Contracts\AppTaskFieldInterface;
@@ -34,6 +35,15 @@ class TaskFieldsController extends Controller
     public function getAllTaskFields()
     {   
         return $this->AppTaskFieldRepository->all();
+    }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @return string
+     */
+    public function getTaskFieldBySlug(Request $request) {
+        return $this->AppTaskFieldRepository->getTaskFieldBySlug($request->all());
     }
 
 }

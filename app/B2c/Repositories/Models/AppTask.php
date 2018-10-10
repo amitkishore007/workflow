@@ -106,4 +106,8 @@ class AppTask extends Model
     public function fields() {
         return $this->belongsToMany('App\B2c\Repositories\Models\AppField','data_row_app_task','app_task_id','data_row_id');
     }
+
+    public function workflow() {
+        return $this->hasMany('App\B2c\Repositories\Models\AppWorkflow','task_id');
+    }
 }

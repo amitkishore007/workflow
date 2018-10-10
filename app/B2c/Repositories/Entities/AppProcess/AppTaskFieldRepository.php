@@ -128,8 +128,8 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                         $rules = json_decode($field->validation_rule);
                         foreach($rules as $rule) {
                             $validation_rules[] = [
-                                'rule'=> $rule->rule,
-                                'value'=> $rule->value,
+                                'name'=> $rule->rule,
+                                'validator'=> $rule->value,
                                 'message'=>$rule->message
                             ];
                         }
@@ -142,7 +142,7 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                     ];
                 }
             }
-            $output[$key] = array_merge($output[$key], ['fields'=>$children]);
+            $output[$key] =  array_merge($output[$key],$children);
         }
         return $output;
     }
@@ -169,6 +169,80 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                 'is_used'=>$field->is_used,
             ];
         }
+        return $output;
+    }
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param Collection $process
+     */
+    public function getTaskFieldBySlug(array $attributes)
+    {
+        $task = $this->AppTask->where('slug',$attributes['slug'])->first();
+        if(!$task){
+            return $this->createResponseStructure(
+                ApiInterface::FAILED_STATUS,
+                Response::HTTP_NOT_FOUND,
+                AppTaskFieldInterface::RESOURCE,
+                ['task'=>'No Task Found']
+            );
+        }
+
+        if (!$task->fields()->count())  {
+            return $this->createResponseStructure(
+                ApiInterface::FAILED_STATUS,
+                Response::HTTP_NOT_FOUND,
+                AppTaskFieldInterface::RESOURCE,
+                ['task'=>'No Form Field Found!']
+            );
+        }
+
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppTaskFieldInterface::RESOURCE,
+            $this->generateFields($task)
+        );
+    }
+
+
+    /**
+     * @author Amit kishore <amit.kishore@biz2credit.com>
+     *
+     * @param Collection $process
+     */
+    private function generateFields($task)
+    {
+        $output = [];
+        $fields = $task->fields()->orderBy('order','asc')->get();
+        // $output[] = ['page'=> $task->name];
+        $children = [];
+        if ($fields) {
+            foreach($fields as $field) {
+
+                $validation_rules = [];
+
+                if ($field->validation_rule) {
+                    $rules = json_decode($field->validation_rule);
+                    foreach($rules as $rule) {
+                        $validation_rules[] = [
+                            'name'=> $rule->rule,
+                            'validator'=> $rule->value,
+                            'message'=>$rule->message
+                        ];
+                    }
+                }
+                $output[] = [
+                    'name'=>$field->name,
+                    'type'=>$field->type,
+                    'label'=>$field->label,
+                    'inputType'=>$field->input_type,
+                    'validation_rules'=> $validation_rules
+                ];
+            }
+        }
+        // $output[] =  $children;
         return $output;
     }
 }
