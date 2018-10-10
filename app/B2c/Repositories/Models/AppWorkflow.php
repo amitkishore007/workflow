@@ -12,7 +12,9 @@ class AppWorkflow extends Model
     protected $fillable = [
         'task_id',
         'next_task',
-        'rules'
+        'rules',
+        'task_config',
+        'next_task_from'
     ];
 
     public function task() {
