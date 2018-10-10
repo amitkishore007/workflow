@@ -219,7 +219,7 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
         // $output[] = ['page'=> $task->name];
         $children = [];
         if ($fields) {
-            foreach($fields as $field) {
+            foreach($fields as $key => $field) {
 
                 $validation_rules = [];
 
@@ -233,13 +233,28 @@ class AppTaskFieldRepository extends ApiRepository implements AppTaskFieldInterf
                         ];
                     }
                 }
-                $output[] = [
-                    'name'=>$field->name,
-                    'type'=>$field->type,
-                    'label'=>$field->label,
-                    'inputType'=>$field->input_type,
-                    'validation_rules'=> $validation_rules
-                ];
+
+                if(!is_null($field->relationship)) {
+                    $relation = json_decode($field->relationship);
+                     $output[] = [
+                        'name'=>$field->name,
+                        'type'=>$field->type,
+                        'label'=>$field->label,
+                        'inputType'=>$field->input_type,
+                        'value'=> $relation->default,
+                        'options'=> $relation->data,
+                        'validation_rules'=> $validation_rules
+                    ];
+                } else {
+                     $output[] = [
+                        'name'=>$field->name,
+                        'type'=>$field->type,
+                        'label'=>$field->label,
+                        'inputType'=>$field->input_type,
+                        'validation_rules'=> $validation_rules
+                    ];
+                }
+
             }
         }
         // $output[] =  $children;
