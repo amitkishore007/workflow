@@ -21,12 +21,17 @@ class AppWorkflowRepository extends ApiRepository implements AppWorkflowInterfac
     protected $AppWorkflow;
 
     /**
+     * @var App\B2c\Repositories\Models\AppTask
+     */
+    protected $AppTask;
+
+    /**
      * @param AppField $AppTaskField
      */
-    public function __construct(AppWorkflow $AppWorkflow)
+    public function __construct(AppWorkflow $AppWorkflow, AppTask $AppTask)
     {
         $this->AppWorkflow = $AppWorkflow;
-      
+        $this->AppTask = $AppTask;
     }
 
     /**
@@ -97,6 +102,27 @@ class AppWorkflowRepository extends ApiRepository implements AppWorkflowInterfac
     public function update(array $attributes, int $id)
     {
        
+    }
+
+    public function nextStep($attributes) 
+    {
+        $workflow = $this->AppWorkflow->where('task_id', $attributes['task_id'])->first();
+
+        if (!$workflow) {
+            return $this->createResponseStructure(
+                ApiInterface::FAILED_STATUS,
+                Response::HTTP_NOT_FOUND,
+                AppWorkflowInterface::RESOURCE,
+                ['workflow'=>'No Task Found']
+            );
+        }
+       
+        return $this->createResponseStructure(
+            ApiInterface::SUCCESS_STATUS,
+            Response::HTTP_OK,
+            AppWorkflowInterface::RESOURCE,
+            $this->AppTask->where('id',$workflow->next_task)->first()->toArray()
+        );
     }
 
 }

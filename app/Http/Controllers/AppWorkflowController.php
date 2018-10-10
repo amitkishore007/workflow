@@ -35,5 +35,17 @@ class AppWorkflowController extends Controller
         return $this->AppWorkflowRepository->create($Request->all());
     }
 
+    /**
+    * @author Amit kishore <amit.kishore@biz2credit.com>
+    *
+    * @param Request $Request
+    *
+    * @return string
+    */
+    public function nextStep(Request $request) 
+    {
+        return $this->AppWorkflowRepository->nextStep($request->all());
+    }
+
     
 }

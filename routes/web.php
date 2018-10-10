@@ -141,7 +141,10 @@ $router->group(['prefix'=>'v1'],function() use ($router){
 
 	$router->group(['prefix'=>'workflow'], function() use ($router) {
 		/** Owner summary **/
-        $router->post('/create', ['as'=>'create_workflow','uses'=>'AppWorkflowController@createWorkflow']);
+		$router->post('/create', ['as'=>'create_workflow','uses'=>'AppWorkflowController@createWorkflow']);
+		
+		$router->post('/next-step', ['as'=>'next_fields','uses'=>'AppWorkflowController@nextStep']);
+
 
 	});
 
