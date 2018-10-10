@@ -240,7 +240,7 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
      */
     public function allFields(int $id)
     {
-        $task = $this->AppTask->find($id);
+        $task = $this->AppTask->where('id', $id)->first();
         $output = [];
         if (!$task) {
             return $this->createResponseStructure(
@@ -266,7 +266,9 @@ class AppTaskRepository extends ApiRepository implements AppTaskInterface
         foreach($task->fields as $field) {
             $output[] = [
                 'id'=>$field->id,
-                'name'=>$field->name
+                'name'=>$field->name,
+                'label'=>$field->label,
+                'type'=>$field->type
             ];
         }
         return $this->createResponseStructure(
